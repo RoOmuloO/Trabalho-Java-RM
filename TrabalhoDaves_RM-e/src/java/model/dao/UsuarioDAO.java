@@ -29,25 +29,25 @@ public class UsuarioDAO {
     
     public List<Usuario> findAllMedicos(){
         Query q = em.createNamedQuery("Usuario.findByTipo");
-        q.setParameter("idusuario", 1);
+        q.setParameter("tipo", 1);
         return q.getResultList();
     }
     
     public List<Usuario> findAllFarmaceuticos(){
         Query q = em.createNamedQuery("Usuario.findByTipo");
-        q.setParameter("idusuario", 2);
+        q.setParameter("tipo", 2);
         return q.getResultList();
     }
     
     public List<Usuario> findAllPacientes(){
         Query q = em.createNamedQuery("Usuario.findByTipo");
-        q.setParameter("idusuario", 3);
+        q.setParameter("tipo", 3);
         return q.getResultList();
     }
     
     public List<Usuario> findAllAdmins(){
         Query q = em.createNamedQuery("Usuario.findByTipo");
-        q.setParameter("idusuario", 4);
+        q.setParameter("tipo", 4);
         return q.getResultList();
     }
 

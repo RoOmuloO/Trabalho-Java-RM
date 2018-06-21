@@ -35,8 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Receita.findByIdreceita", query = "SELECT r FROM Receita r WHERE r.idreceita = :idreceita")
     , @NamedQuery(name = "Receita.findByUsada", query = "SELECT r FROM Receita r WHERE r.usada = :usada")
     , @NamedQuery(name = "Receita.findByCancelada", query = "SELECT r FROM Receita r WHERE r.cancelada = :cancelada")
-    , @NamedQuery(name = "Receita.findByHoraVenda", query = "SELECT r FROM Receita r WHERE r.horaVenda = :horaVenda")
-    , @NamedQuery(name = "Receita.findByDataVenda", query = "SELECT r FROM Receita r WHERE r.dataVenda = :dataVenda")})
+    , @NamedQuery(name = "Receita.findByHora", query = "SELECT r FROM Receita r WHERE r.hora = :hora")
+    , @NamedQuery(name = "Receita.findByData", query = "SELECT r FROM Receita r WHERE r.data = :data")
+    , @NamedQuery(name = "Receita.findByInstrucoesUso", query = "SELECT r FROM Receita r WHERE r.instrucoesUso = :instrucoesUso")})
 public class Receita implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,10 +48,15 @@ public class Receita implements Serializable {
     private Integer idreceita;
     private Short usada;
     private Short cancelada;
-    @Column(length = 45)
-    private String horaVenda;
-    @Column(length = 45)
-    private String dataVenda;
+    @Basic(optional = false)
+    @Column(nullable = false, length = 45)
+    private String hora;
+    @Basic(optional = false)
+    @Column(nullable = false, length = 45)
+    private String data;
+    @Basic(optional = false)
+    @Column(name = "instrucoes_uso", nullable = false, length = 45)
+    private String instrucoesUso;
     @JoinColumn(name = "consulta_idconsulta", referencedColumnName = "idconsulta", nullable = false)
     @ManyToOne(optional = false)
     private Consulta consultaIdconsulta;
@@ -62,6 +68,13 @@ public class Receita implements Serializable {
 
     public Receita(Integer idreceita) {
         this.idreceita = idreceita;
+    }
+
+    public Receita(Integer idreceita, String hora, String data, String instrucoesUso) {
+        this.idreceita = idreceita;
+        this.hora = hora;
+        this.data = data;
+        this.instrucoesUso = instrucoesUso;
     }
 
     public Integer getIdreceita() {
@@ -88,20 +101,28 @@ public class Receita implements Serializable {
         this.cancelada = cancelada;
     }
 
-    public String getHoraVenda() {
-        return horaVenda;
+    public String getHora() {
+        return hora;
     }
 
-    public void setHoraVenda(String horaVenda) {
-        this.horaVenda = horaVenda;
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 
-    public String getDataVenda() {
-        return dataVenda;
+    public String getData() {
+        return data;
     }
 
-    public void setDataVenda(String dataVenda) {
-        this.dataVenda = dataVenda;
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getInstrucoesUso() {
+        return instrucoesUso;
+    }
+
+    public void setInstrucoesUso(String instrucoesUso) {
+        this.instrucoesUso = instrucoesUso;
     }
 
     public Consulta getConsultaIdconsulta() {

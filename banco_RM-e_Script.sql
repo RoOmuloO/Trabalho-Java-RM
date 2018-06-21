@@ -1,3 +1,5 @@
+-- MySQL Workbench Forward Engineering
+
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
@@ -8,7 +10,10 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema rm_e
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `rm_e` ;
+
+-- -----------------------------------------------------
+-- Schema rm_e
+-- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `rm_e` DEFAULT CHARACTER SET utf8 ;
 USE `rm_e` ;
 
@@ -25,6 +30,7 @@ CREATE TABLE IF NOT EXISTS `rm_e`.`usuario` (
   `cpf` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`idusuario`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -83,7 +89,6 @@ CREATE TABLE IF NOT EXISTS `rm_e`.`medicamento` (
   `descricao` VARCHAR(45) NULL DEFAULT NULL,
   `tipo` VARCHAR(45) NULL DEFAULT NULL,
   `manipuladoura` VARCHAR(45) NULL DEFAULT NULL,
-  `vendido` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`idmedicamento`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -97,8 +102,9 @@ CREATE TABLE IF NOT EXISTS `rm_e`.`receita` (
   `usada` TINYINT(4) NULL DEFAULT '0',
   `cancelada` TINYINT(4) NULL DEFAULT '0',
   `consulta_idconsulta` INT(11) NOT NULL,
-  `horaVenda` VARCHAR(45) NULL DEFAULT NULL,
-  `dataVenda` VARCHAR(45) NULL DEFAULT NULL,
+  `hora` VARCHAR(45) NOT NULL,
+  `data` VARCHAR(45) NOT NULL,
+  `instrucoes_uso` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idreceita`),
   INDEX `fk_receita_consulta1_idx` (`consulta_idconsulta` ASC),
   CONSTRAINT `fk_receita_consulta1`
@@ -117,19 +123,20 @@ CREATE TABLE IF NOT EXISTS `rm_e`.`receita_has_medicamento` (
   `receita_idreceita` INT(11) NOT NULL,
   `medicamento_idmedicamento` INT(11) NOT NULL,
   `vendido` TINYINT(4) NOT NULL DEFAULT '0',
-  `horario` VARCHAR(45) NULL,
-  `instrucoes_uso` VARCHAR(45) NULL,
+  `instrucoes_uso` VARCHAR(45) NULL DEFAULT NULL,
+  `dataVenda` VARCHAR(45) NULL DEFAULT NULL,
+  `horaVenda` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`receita_idreceita`, `medicamento_idmedicamento`),
   INDEX `fk_receita_has_medicamento_medicamento1_idx` (`medicamento_idmedicamento` ASC),
   INDEX `fk_receita_has_medicamento_receita1_idx` (`receita_idreceita` ASC),
-  CONSTRAINT `fk_receita_has_medicamento_receita1`
-    FOREIGN KEY (`receita_idreceita`)
-    REFERENCES `rm_e`.`receita` (`idreceita`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_receita_has_medicamento_medicamento1`
     FOREIGN KEY (`medicamento_idmedicamento`)
     REFERENCES `rm_e`.`medicamento` (`idmedicamento`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_receita_has_medicamento_receita1`
+    FOREIGN KEY (`receita_idreceita`)
+    REFERENCES `rm_e`.`receita` (`idreceita`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB

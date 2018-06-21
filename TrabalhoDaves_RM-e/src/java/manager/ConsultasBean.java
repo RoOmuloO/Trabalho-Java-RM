@@ -6,6 +6,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import model.Consulta;
+import model.Exame;
+import model.Receita;
 import model.Usuario;
 import model.dao.ConsultaDAO;
 import model.dao.UsuarioDAO;
@@ -23,14 +25,20 @@ public class ConsultasBean {
     private List<Usuario> pacientes;
     private UsuarioDAO usuarioDao;
     
+    private Exame exame;
+    private List<Exame> exames;
+    
+    private Receita recita;
+    private List<Receita> receita;
+    
     public ConsultasBean() {
         status = "View";
         consultaDao = new ConsultaDAO();
         consultas = consultaDao.findAll();
-        
         usuarioDao = new UsuarioDAO();
         medicos = usuarioDao.findAllMedicos();
         pacientes = usuarioDao.findAllPacientes();
+
     }
     
     public String gravarConsulta() {    
@@ -43,6 +51,8 @@ public class ConsultasBean {
     public String novaConsulta() {
         status = "Cad";
         consulta = new Consulta();
+        consulta.setUsuarioMedico(new Usuario());
+        consulta.setUsuarioPaciente(new Usuario());
         return "";
     }
 

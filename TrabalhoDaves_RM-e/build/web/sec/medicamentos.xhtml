@@ -4,50 +4,44 @@
                 template="./../WEB-INF/Template.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
-
+    
     <ui:define name="content">
         <h2>Usuarios</h2>
         <h:form id="form">
-            <h:panelGroup id="lista" rendered="#{consultasBean.status == 'View'}">
-                <h:commandButton value="Nova Consulta" action="#{consultasBean.novaConsulta()}" class="btn-success"/>
+            <h:panelGroup id="lista" rendered="#{medicamentosBean.status == 'View'}">
+                <h:commandButton value="Novo Veiculo" action="#{medicamentosBean.novoMedicamento()}" id="novo"/>
                 
-                <h:dataTable value="#{consultasBean.consultas}" var="v"
+                <h:dataTable value="#{medicamentosBean.medicamentos}" var="m"
                              border="1" style="width: 100%" class="table-bordered">   
                     <h:column>
                         <f:facet name="header">
                             Id
                         </f:facet>
-                            ${v.idconsulta}
+                            ${m.idmedicamento}
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            Medico
+                            Nome
                         </f:facet>
-                            ${v.usuarioMedico.nome}
+                            ${m.nome}
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            Paciente
+                            Descrição
                         </f:facet>
-                            ${v.usuarioPaciente.nome}
+                            ${m.descricao}
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            local
+                            Tipo
                         </f:facet>
-                            ${v.local}
+                            ${m.tipo}
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            Data
+                            Manipuladoura
                         </f:facet>
-                            ${v.data}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            Hora
-                        </f:facet>
-                            ${v.hora}
+                            ${m.manipuladoura}
                     </h:column>
                     <h:column>
                         <f:facet name="header">
@@ -61,29 +55,23 @@
                 </h:dataTable>
             </h:panelGroup>
 
-            <h:panelGroup id="Cadastro"  rendered="#{consultasBean.status == 'Cad'}">
+            <h:panelGroup id="Cadastro"  rendered="#{medicamentosBean.status == 'Cad'}">
                 
                 <h:panelGrid columns="2">
- 
-                    Nome: <h:inputText value="#{consultasBean.consulta.local}" required="true" label="Nome" style="height: 30px; width: 219;"/>
                     
-                    Login: <h:inputText value="#{consultasBean.consulta.data}" required="true" label="Login" style="height: 30px; width: 219;"/>
+                    Nome: <h:inputText value="#{medicamentosBean.medicamento.nome}" required="true" label="Nome" style="height: 30px; width: 219;"/>
                     
-                    Senha: <h:inputText value="#{consultasBean.consulta.hora}" required="true" label="Login" style="height: 30px; width: 219;"/>
+                    Descrição: <h:inputText value="#{medicamentosBean.medicamento.descricao}" required="true" label="Descricao" style="height: 30px; width: 219;"/>
                     
-                    Medico: <h:selectOneListbox value="#{consultasBean.consulta.usuarioMedico.idusuario}">
-                        <f:selectItems value="#{consultasBean.medicos}" var="m" itemLabel="#{m.nome}" itemValue="#{m.idusuario}" />                      
-                    </h:selectOneListbox>
+                    Tipo: <h:inputText value="#{medicamentosBean.medicamento.tipo}" required="true" label="Tipo" style="height: 30px; width: 219;"/>
                     
-                    Paciente: <h:selectOneListbox value="#{consultasBean.consulta.usuarioPaciente.idusuario}">
-                        <f:selectItems value="#{consultasBean.pacientes}" var="m" itemLabel="#{m.nome}" itemValue="#{m.idusuario}" />                        
-                    </h:selectOneListbox>
+                    Manipuladoura: <h:inputText value="#{medicamentosBean.medicamento.manipuladoura}" required="true" label="Login" style="height: 30px; width: 219;"/>
                     
                     <h:panelGroup />
                     <h:panelGroup style="float: right;">
                         <h:commandButton value="Voltar" class="btn-danger"/>
                         &nbsp;
-                        <h:commandButton value="Gravar" action="#{consultasBean.gravarConsulta()}" class="btn-success"/>
+                        <h:commandButton value="Gravar" action="#{medicamentosBean.gravarMedicamento()}" class="btn-success"/>
                     </h:panelGroup>   
                 </h:panelGrid>
             </h:panelGroup>

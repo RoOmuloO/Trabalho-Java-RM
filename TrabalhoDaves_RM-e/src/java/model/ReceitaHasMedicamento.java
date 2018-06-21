@@ -29,8 +29,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "ReceitaHasMedicamento.findByReceitaIdreceita", query = "SELECT r FROM ReceitaHasMedicamento r WHERE r.receitaHasMedicamentoPK.receitaIdreceita = :receitaIdreceita")
     , @NamedQuery(name = "ReceitaHasMedicamento.findByMedicamentoIdmedicamento", query = "SELECT r FROM ReceitaHasMedicamento r WHERE r.receitaHasMedicamentoPK.medicamentoIdmedicamento = :medicamentoIdmedicamento")
     , @NamedQuery(name = "ReceitaHasMedicamento.findByVendido", query = "SELECT r FROM ReceitaHasMedicamento r WHERE r.vendido = :vendido")
-    , @NamedQuery(name = "ReceitaHasMedicamento.findByHorario", query = "SELECT r FROM ReceitaHasMedicamento r WHERE r.horario = :horario")
-    , @NamedQuery(name = "ReceitaHasMedicamento.findByInstrucoesUso", query = "SELECT r FROM ReceitaHasMedicamento r WHERE r.instrucoesUso = :instrucoesUso")})
+    , @NamedQuery(name = "ReceitaHasMedicamento.findByInstrucoesUso", query = "SELECT r FROM ReceitaHasMedicamento r WHERE r.instrucoesUso = :instrucoesUso")
+    , @NamedQuery(name = "ReceitaHasMedicamento.findByDataVenda", query = "SELECT r FROM ReceitaHasMedicamento r WHERE r.dataVenda = :dataVenda")
+    , @NamedQuery(name = "ReceitaHasMedicamento.findByHoraVenda", query = "SELECT r FROM ReceitaHasMedicamento r WHERE r.horaVenda = :horaVenda")})
 public class ReceitaHasMedicamento implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,10 +40,12 @@ public class ReceitaHasMedicamento implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private short vendido;
-    @Column(length = 45)
-    private String horario;
     @Column(name = "instrucoes_uso", length = 45)
     private String instrucoesUso;
+    @Column(length = 45)
+    private String dataVenda;
+    @Column(length = 45)
+    private String horaVenda;
     @JoinColumn(name = "medicamento_idmedicamento", referencedColumnName = "idmedicamento", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Medicamento medicamento;
@@ -82,20 +85,28 @@ public class ReceitaHasMedicamento implements Serializable {
         this.vendido = vendido;
     }
 
-    public String getHorario() {
-        return horario;
-    }
-
-    public void setHorario(String horario) {
-        this.horario = horario;
-    }
-
     public String getInstrucoesUso() {
         return instrucoesUso;
     }
 
     public void setInstrucoesUso(String instrucoesUso) {
         this.instrucoesUso = instrucoesUso;
+    }
+
+    public String getDataVenda() {
+        return dataVenda;
+    }
+
+    public void setDataVenda(String dataVenda) {
+        this.dataVenda = dataVenda;
+    }
+
+    public String getHoraVenda() {
+        return horaVenda;
+    }
+
+    public void setHoraVenda(String horaVenda) {
+        this.horaVenda = horaVenda;
     }
 
     public Medicamento getMedicamento() {

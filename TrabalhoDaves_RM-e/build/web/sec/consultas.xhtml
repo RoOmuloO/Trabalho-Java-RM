@@ -75,7 +75,7 @@
                         <f:selectItems value="#{consultasBean.medicos}" var="m" itemLabel="#{m.nome}" itemValue="#{m.idusuario}" />                      
                     </h:selectOneListbox>
                     
-                    Paciente: <h:selectOneListbox value="#{consultasBean.consulta.modelo.idmodelo}">
+                    Paciente: <h:selectOneListbox value="#{consultasBean.consulta.usuarioPaciente.idusuario}">
                         <f:selectItems value="#{consultasBean.pacientes}" var="m" itemLabel="#{m.nome}" itemValue="#{m.idusuario}" />                        
                     </h:selectOneListbox>
                     

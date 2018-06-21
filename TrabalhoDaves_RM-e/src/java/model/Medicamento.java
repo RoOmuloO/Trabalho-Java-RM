@@ -34,8 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Medicamento.findByNome", query = "SELECT m FROM Medicamento m WHERE m.nome = :nome")
     , @NamedQuery(name = "Medicamento.findByDescricao", query = "SELECT m FROM Medicamento m WHERE m.descricao = :descricao")
     , @NamedQuery(name = "Medicamento.findByTipo", query = "SELECT m FROM Medicamento m WHERE m.tipo = :tipo")
-    , @NamedQuery(name = "Medicamento.findByManipuladoura", query = "SELECT m FROM Medicamento m WHERE m.manipuladoura = :manipuladoura")
-    , @NamedQuery(name = "Medicamento.findByVendido", query = "SELECT m FROM Medicamento m WHERE m.vendido = :vendido")})
+    , @NamedQuery(name = "Medicamento.findByManipuladoura", query = "SELECT m FROM Medicamento m WHERE m.manipuladoura = :manipuladoura")})
 public class Medicamento implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,8 +52,6 @@ public class Medicamento implements Serializable {
     private String tipo;
     @Column(length = 45)
     private String manipuladoura;
-    @Column(length = 45)
-    private String vendido;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "medicamento")
     private List<ReceitaHasMedicamento> receitaHasMedicamentoList;
 
@@ -108,14 +105,6 @@ public class Medicamento implements Serializable {
 
     public void setManipuladoura(String manipuladoura) {
         this.manipuladoura = manipuladoura;
-    }
-
-    public String getVendido() {
-        return vendido;
-    }
-
-    public void setVendido(String vendido) {
-        this.vendido = vendido;
     }
 
     @XmlTransient
