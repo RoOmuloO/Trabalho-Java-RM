@@ -8,8 +8,10 @@ package model;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -22,52 +24,50 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author yurid
  */
 @Entity
-@Table(catalog = "rm-e", schema = "")
+@Table(catalog = "rm_e", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Exame.findAll", query = "SELECT e FROM Exame e")
-    , @NamedQuery(name = "Exame.findByIdexame", query = "SELECT e FROM Exame e WHERE e.examePK.idexame = :idexame")
+    , @NamedQuery(name = "Exame.findByIdexame", query = "SELECT e FROM Exame e WHERE e.idexame = :idexame")
     , @NamedQuery(name = "Exame.findByTipo", query = "SELECT e FROM Exame e WHERE e.tipo = :tipo")
-    , @NamedQuery(name = "Exame.findByDescricao", query = "SELECT e FROM Exame e WHERE e.descricao = :descricao")
-    , @NamedQuery(name = "Exame.findByConsultaIdconsulta", query = "SELECT e FROM Exame e WHERE e.examePK.consultaIdconsulta = :consultaIdconsulta")})
+    , @NamedQuery(name = "Exame.findByDescricao", query = "SELECT e FROM Exame e WHERE e.descricao = :descricao")})
 public class Exame implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected ExamePK examePK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(nullable = false)
+    private Integer idexame;
     @Basic(optional = false)
     @Column(nullable = false, length = 45)
     private String tipo;
     @Basic(optional = false)
     @Column(nullable = false, length = 45)
     private String descricao;
-    @JoinColumn(name = "consulta_idconsulta", referencedColumnName = "idconsulta", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "consulta_idconsulta", referencedColumnName = "idconsulta", nullable = false)
     @ManyToOne(optional = false)
-    private Consulta consulta;
+    private Consulta consultaIdconsulta;
 
     public Exame() {
     }
 
-    public Exame(ExamePK examePK) {
-        this.examePK = examePK;
+    public Exame(Integer idexame) {
+        this.idexame = idexame;
     }
 
-    public Exame(ExamePK examePK, String tipo, String descricao) {
-        this.examePK = examePK;
+    public Exame(Integer idexame, String tipo, String descricao) {
+        this.idexame = idexame;
         this.tipo = tipo;
         this.descricao = descricao;
     }
 
-    public Exame(int idexame, int consultaIdconsulta) {
-        this.examePK = new ExamePK(idexame, consultaIdconsulta);
+    public Integer getIdexame() {
+        return idexame;
     }
 
-    public ExamePK getExamePK() {
-        return examePK;
-    }
-
-    public void setExamePK(ExamePK examePK) {
-        this.examePK = examePK;
+    public void setIdexame(Integer idexame) {
+        this.idexame = idexame;
     }
 
     public String getTipo() {
@@ -86,18 +86,18 @@ public class Exame implements Serializable {
         this.descricao = descricao;
     }
 
-    public Consulta getConsulta() {
-        return consulta;
+    public Consulta getConsultaIdconsulta() {
+        return consultaIdconsulta;
     }
 
-    public void setConsulta(Consulta consulta) {
-        this.consulta = consulta;
+    public void setConsultaIdconsulta(Consulta consultaIdconsulta) {
+        this.consultaIdconsulta = consultaIdconsulta;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (examePK != null ? examePK.hashCode() : 0);
+        hash += (idexame != null ? idexame.hashCode() : 0);
         return hash;
     }
 
@@ -108,7 +108,7 @@ public class Exame implements Serializable {
             return false;
         }
         Exame other = (Exame) object;
-        if ((this.examePK == null && other.examePK != null) || (this.examePK != null && !this.examePK.equals(other.examePK))) {
+        if ((this.idexame == null && other.idexame != null) || (this.idexame != null && !this.idexame.equals(other.idexame))) {
             return false;
         }
         return true;
@@ -116,7 +116,7 @@ public class Exame implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Exame[ examePK=" + examePK + " ]";
+        return "model.Exame[ idexame=" + idexame + " ]";
     }
     
 }

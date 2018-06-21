@@ -7,10 +7,13 @@ package model;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -25,57 +28,48 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author yurid
  */
 @Entity
-@Table(catalog = "rm-e", schema = "")
+@Table(catalog = "rm_e", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Receita.findAll", query = "SELECT r FROM Receita r")
-    , @NamedQuery(name = "Receita.findByIdreceita", query = "SELECT r FROM Receita r WHERE r.receitaPK.idreceita = :idreceita")
+    , @NamedQuery(name = "Receita.findByIdreceita", query = "SELECT r FROM Receita r WHERE r.idreceita = :idreceita")
     , @NamedQuery(name = "Receita.findByUsada", query = "SELECT r FROM Receita r WHERE r.usada = :usada")
     , @NamedQuery(name = "Receita.findByCancelada", query = "SELECT r FROM Receita r WHERE r.cancelada = :cancelada")
-    , @NamedQuery(name = "Receita.findByConsultaIdconsulta", query = "SELECT r FROM Receita r WHERE r.receitaPK.consultaIdconsulta = :consultaIdconsulta")
-    , @NamedQuery(name = "Receita.findByUsuarioIdusuario", query = "SELECT r FROM Receita r WHERE r.receitaPK.usuarioIdusuario = :usuarioIdusuario")
-    , @NamedQuery(name = "Receita.findByInstrucao", query = "SELECT r FROM Receita r WHERE r.instrucao = :instrucao")
     , @NamedQuery(name = "Receita.findByHoraVenda", query = "SELECT r FROM Receita r WHERE r.horaVenda = :horaVenda")
     , @NamedQuery(name = "Receita.findByDataVenda", query = "SELECT r FROM Receita r WHERE r.dataVenda = :dataVenda")})
 public class Receita implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected ReceitaPK receitaPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(nullable = false)
+    private Integer idreceita;
     private Short usada;
     private Short cancelada;
-    @Column(length = 45)
-    private String instrucao;
     @Column(length = 45)
     private String horaVenda;
     @Column(length = 45)
     private String dataVenda;
-    @JoinColumn(name = "consulta_idconsulta", referencedColumnName = "idconsulta", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "consulta_idconsulta", referencedColumnName = "idconsulta", nullable = false)
     @ManyToOne(optional = false)
-    private Consulta consulta;
-    @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Usuario usuario;
+    private Consulta consultaIdconsulta;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "receita")
     private List<ReceitaHasMedicamento> receitaHasMedicamentoList;
 
     public Receita() {
     }
 
-    public Receita(ReceitaPK receitaPK) {
-        this.receitaPK = receitaPK;
+    public Receita(Integer idreceita) {
+        this.idreceita = idreceita;
     }
 
-    public Receita(int idreceita, int consultaIdconsulta, int usuarioIdusuario) {
-        this.receitaPK = new ReceitaPK(idreceita, consultaIdconsulta, usuarioIdusuario);
+    public Integer getIdreceita() {
+        return idreceita;
     }
 
-    public ReceitaPK getReceitaPK() {
-        return receitaPK;
-    }
-
-    public void setReceitaPK(ReceitaPK receitaPK) {
-        this.receitaPK = receitaPK;
+    public void setIdreceita(Integer idreceita) {
+        this.idreceita = idreceita;
     }
 
     public Short getUsada() {
@@ -94,14 +88,6 @@ public class Receita implements Serializable {
         this.cancelada = cancelada;
     }
 
-    public String getInstrucao() {
-        return instrucao;
-    }
-
-    public void setInstrucao(String instrucao) {
-        this.instrucao = instrucao;
-    }
-
     public String getHoraVenda() {
         return horaVenda;
     }
@@ -118,20 +104,12 @@ public class Receita implements Serializable {
         this.dataVenda = dataVenda;
     }
 
-    public Consulta getConsulta() {
-        return consulta;
+    public Consulta getConsultaIdconsulta() {
+        return consultaIdconsulta;
     }
 
-    public void setConsulta(Consulta consulta) {
-        this.consulta = consulta;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setConsultaIdconsulta(Consulta consultaIdconsulta) {
+        this.consultaIdconsulta = consultaIdconsulta;
     }
 
     @XmlTransient
@@ -146,7 +124,7 @@ public class Receita implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (receitaPK != null ? receitaPK.hashCode() : 0);
+        hash += (idreceita != null ? idreceita.hashCode() : 0);
         return hash;
     }
 
@@ -157,7 +135,7 @@ public class Receita implements Serializable {
             return false;
         }
         Receita other = (Receita) object;
-        if ((this.receitaPK == null && other.receitaPK != null) || (this.receitaPK != null && !this.receitaPK.equals(other.receitaPK))) {
+        if ((this.idreceita == null && other.idreceita != null) || (this.idreceita != null && !this.idreceita.equals(other.idreceita))) {
             return false;
         }
         return true;
@@ -165,7 +143,7 @@ public class Receita implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Receita[ receitaPK=" + receitaPK + " ]";
+        return "model.Receita[ idreceita=" + idreceita + " ]";
     }
     
 }

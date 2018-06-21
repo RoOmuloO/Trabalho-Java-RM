@@ -6,6 +6,8 @@
 package model;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -20,23 +22,27 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author yurid
  */
 @Entity
-@Table(name = "receita_has_medicamento", catalog = "rm-e", schema = "")
+@Table(name = "receita_has_medicamento", catalog = "rm_e", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ReceitaHasMedicamento.findAll", query = "SELECT r FROM ReceitaHasMedicamento r")
     , @NamedQuery(name = "ReceitaHasMedicamento.findByReceitaIdreceita", query = "SELECT r FROM ReceitaHasMedicamento r WHERE r.receitaHasMedicamentoPK.receitaIdreceita = :receitaIdreceita")
     , @NamedQuery(name = "ReceitaHasMedicamento.findByMedicamentoIdmedicamento", query = "SELECT r FROM ReceitaHasMedicamento r WHERE r.receitaHasMedicamentoPK.medicamentoIdmedicamento = :medicamentoIdmedicamento")
     , @NamedQuery(name = "ReceitaHasMedicamento.findByVendido", query = "SELECT r FROM ReceitaHasMedicamento r WHERE r.vendido = :vendido")
-    , @NamedQuery(name = "ReceitaHasMedicamento.findByDosagemIddosagem", query = "SELECT r FROM ReceitaHasMedicamento r WHERE r.receitaHasMedicamentoPK.dosagemIddosagem = :dosagemIddosagem")})
+    , @NamedQuery(name = "ReceitaHasMedicamento.findByHorario", query = "SELECT r FROM ReceitaHasMedicamento r WHERE r.horario = :horario")
+    , @NamedQuery(name = "ReceitaHasMedicamento.findByInstrucoesUso", query = "SELECT r FROM ReceitaHasMedicamento r WHERE r.instrucoesUso = :instrucoesUso")})
 public class ReceitaHasMedicamento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected ReceitaHasMedicamentoPK receitaHasMedicamentoPK;
-    private Short vendido;
-    @JoinColumn(name = "dosagem_iddosagem", referencedColumnName = "iddosagem", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Dosagem dosagem;
+    @Basic(optional = false)
+    @Column(nullable = false)
+    private short vendido;
+    @Column(length = 45)
+    private String horario;
+    @Column(name = "instrucoes_uso", length = 45)
+    private String instrucoesUso;
     @JoinColumn(name = "medicamento_idmedicamento", referencedColumnName = "idmedicamento", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Medicamento medicamento;
@@ -51,8 +57,13 @@ public class ReceitaHasMedicamento implements Serializable {
         this.receitaHasMedicamentoPK = receitaHasMedicamentoPK;
     }
 
-    public ReceitaHasMedicamento(int receitaIdreceita, int medicamentoIdmedicamento, int dosagemIddosagem) {
-        this.receitaHasMedicamentoPK = new ReceitaHasMedicamentoPK(receitaIdreceita, medicamentoIdmedicamento, dosagemIddosagem);
+    public ReceitaHasMedicamento(ReceitaHasMedicamentoPK receitaHasMedicamentoPK, short vendido) {
+        this.receitaHasMedicamentoPK = receitaHasMedicamentoPK;
+        this.vendido = vendido;
+    }
+
+    public ReceitaHasMedicamento(int receitaIdreceita, int medicamentoIdmedicamento) {
+        this.receitaHasMedicamentoPK = new ReceitaHasMedicamentoPK(receitaIdreceita, medicamentoIdmedicamento);
     }
 
     public ReceitaHasMedicamentoPK getReceitaHasMedicamentoPK() {
@@ -63,20 +74,28 @@ public class ReceitaHasMedicamento implements Serializable {
         this.receitaHasMedicamentoPK = receitaHasMedicamentoPK;
     }
 
-    public Short getVendido() {
+    public short getVendido() {
         return vendido;
     }
 
-    public void setVendido(Short vendido) {
+    public void setVendido(short vendido) {
         this.vendido = vendido;
     }
 
-    public Dosagem getDosagem() {
-        return dosagem;
+    public String getHorario() {
+        return horario;
     }
 
-    public void setDosagem(Dosagem dosagem) {
-        this.dosagem = dosagem;
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
+    public String getInstrucoesUso() {
+        return instrucoesUso;
+    }
+
+    public void setInstrucoesUso(String instrucoesUso) {
+        this.instrucoesUso = instrucoesUso;
     }
 
     public Medicamento getMedicamento() {

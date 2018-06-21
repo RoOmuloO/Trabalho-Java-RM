@@ -4,11 +4,12 @@
 
 #top{
     height: 5%;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     box-shadow: 5px 5px 5px grey;
     border-radius: 5px;
     background: #6c757d;
     margin-right: 7px;
+    height: 50px;
 }
 
 #logo{
@@ -21,9 +22,29 @@
     float: left;
 }
 
+#options{
+    float: left;
+    padding-top: 7px;
+    width: 100%;
+}
+
+li{
+    width: 100%;
+}
+
+#btn{
+    width: 100%;
+}
+
+#botao{
+    color: red;
+    width: 100%;
+}
+
 #login{
+    
     float: right;
-    padding-top: 10px;
+    padding-top: 8px;
     padding-right: 10px;
 }
 
@@ -64,18 +85,32 @@ a:link:hover{
     box-shadow: 5px 5px 5px grey;
     border-radius: 5px;
     background-color: #ebebeb;
+    float: left;
 }
 
-
-
-
-
-
+#conteudo-left{
+    margin: 10px;
+    width: 90%;
+    height: 90%;
+}
 
 #content{
     margin-left: 17.8%;
+    width: 80%;
+    height: 100%;
     background-color: #ffffff;
 }
+
+#conteudo-content{
+    margin: 10px;
+    width: 98.5%;
+    height: 90%;
+}
+
+#novo{
+    padding-bottom: 25px;
+}
+
 
 
 

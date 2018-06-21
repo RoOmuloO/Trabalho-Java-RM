@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author yurid
  */
 @Entity
-@Table(catalog = "rm-e", schema = "")
+@Table(catalog = "rm_e", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
@@ -61,10 +61,10 @@ public class Usuario implements Serializable {
     private int tipo;
     @Column(length = 45)
     private String cpf;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private List<Receita> receitaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioMedico")
     private List<Consulta> consultaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioPaciente")
+    private List<Consulta> consultaList1;
 
     public Usuario() {
     }
@@ -138,21 +138,21 @@ public class Usuario implements Serializable {
     }
 
     @XmlTransient
-    public List<Receita> getReceitaList() {
-        return receitaList;
-    }
-
-    public void setReceitaList(List<Receita> receitaList) {
-        this.receitaList = receitaList;
-    }
-
-    @XmlTransient
     public List<Consulta> getConsultaList() {
         return consultaList;
     }
 
     public void setConsultaList(List<Consulta> consultaList) {
         this.consultaList = consultaList;
+    }
+
+    @XmlTransient
+    public List<Consulta> getConsultaList1() {
+        return consultaList1;
+    }
+
+    public void setConsultaList1(List<Consulta> consultaList1) {
+        this.consultaList1 = consultaList1;
     }
 
     @Override

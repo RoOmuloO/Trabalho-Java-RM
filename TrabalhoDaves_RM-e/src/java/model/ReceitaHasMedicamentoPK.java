@@ -23,17 +23,13 @@ public class ReceitaHasMedicamentoPK implements Serializable {
     @Basic(optional = false)
     @Column(name = "medicamento_idmedicamento", nullable = false)
     private int medicamentoIdmedicamento;
-    @Basic(optional = false)
-    @Column(name = "dosagem_iddosagem", nullable = false)
-    private int dosagemIddosagem;
 
     public ReceitaHasMedicamentoPK() {
     }
 
-    public ReceitaHasMedicamentoPK(int receitaIdreceita, int medicamentoIdmedicamento, int dosagemIddosagem) {
+    public ReceitaHasMedicamentoPK(int receitaIdreceita, int medicamentoIdmedicamento) {
         this.receitaIdreceita = receitaIdreceita;
         this.medicamentoIdmedicamento = medicamentoIdmedicamento;
-        this.dosagemIddosagem = dosagemIddosagem;
     }
 
     public int getReceitaIdreceita() {
@@ -52,20 +48,11 @@ public class ReceitaHasMedicamentoPK implements Serializable {
         this.medicamentoIdmedicamento = medicamentoIdmedicamento;
     }
 
-    public int getDosagemIddosagem() {
-        return dosagemIddosagem;
-    }
-
-    public void setDosagemIddosagem(int dosagemIddosagem) {
-        this.dosagemIddosagem = dosagemIddosagem;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) receitaIdreceita;
         hash += (int) medicamentoIdmedicamento;
-        hash += (int) dosagemIddosagem;
         return hash;
     }
 
@@ -82,15 +69,12 @@ public class ReceitaHasMedicamentoPK implements Serializable {
         if (this.medicamentoIdmedicamento != other.medicamentoIdmedicamento) {
             return false;
         }
-        if (this.dosagemIddosagem != other.dosagemIddosagem) {
-            return false;
-        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "model.ReceitaHasMedicamentoPK[ receitaIdreceita=" + receitaIdreceita + ", medicamentoIdmedicamento=" + medicamentoIdmedicamento + ", dosagemIddosagem=" + dosagemIddosagem + " ]";
+        return "model.ReceitaHasMedicamentoPK[ receitaIdreceita=" + receitaIdreceita + ", medicamentoIdmedicamento=" + medicamentoIdmedicamento + " ]";
     }
     
 }

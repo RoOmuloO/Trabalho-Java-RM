@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../WEB-INF/Template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:outputStylesheet name="./css/default.css"/>
+
+    <ui:define name="content">
+        <h2>Usuarios</h2>
+        <h:form id="form">
+            <h:panelGroup id="lista" rendered="#{usuariosBean.status == 'View'}">
+                <h:commandButton value="Novo Veiculo" action="#{usuariosBean.novoUsuario()}" id="novo"/>
+                
+                <h:dataTable value="#{usuariosBean.usuarios}" var="v"
+                             border="1" style="width: 100%" class="table-bordered">   
+                    <h:column>
+                        <f:facet name="header">
+                            Id
+                        </f:facet>
+                            ${v.idusuario}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Nome
+                        </f:facet>
+                            ${v.nome}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Tipo
+                        </f:facet>
+                            ${v.tipo}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Login
+                        </f:facet>
+                            ${v.login}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Cpf
+                        </f:facet>
+                            ${v.cpf}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            E-mail
+                        </f:facet>
+                            ${v.email}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Ações
+                        </f:facet>
+                        <h:commandLink value="Edit"/>
+                        &nbsp;
+                        <h:commandLink value="Apagar" />
+                    </h:column>
+                    
+                </h:dataTable>
+            </h:panelGroup>
+
+            <h:panelGroup id="Cadastro"  rendered="#{usuariosBean.status == 'Cad'}">
+                
+                <h:panelGrid columns="2">
+                    Login:
+                    <h:selectOneMenu value="#{usuariosBean.usuario.tipo}" >
+                        <f:selectItem itemLabel="Médico" itemValue="1" />
+                        <f:selectItem itemLabel="Farmaceutico" itemValue="2" />
+                        <f:selectItem itemLabel="Paciente" itemValue="3" />
+                        <f:selectItem itemLabel="Admin" itemValue="4" />
+                    </h:selectOneMenu>
+                    
+                    Nome: <h:inputText value="#{usuariosBean.usuario.nome}" required="true" label="Nome" style="height: 30px; width: 219;"/>
+                    
+                    Login: <h:inputText value="#{usuariosBean.usuario.login}" required="true" label="Login" style="height: 30px; width: 219;"/>
+                    
+                    Senha: <h:inputText value="#{usuariosBean.usuario.senha}" required="true" label="Login" style="height: 30px; width: 219;"/>
+                    
+                    E-mail: <h:inputText value="#{usuariosBean.usuario.email}" required="true" label="Login" style="height: 30px; width: 219;"/>
+                    
+                    Cpf: <h:inputText value="#{usuariosBean.usuario.cpf}" required="true" label="Login" style="height: 30px; width: 219;"/>
+
+                    <h:panelGroup />
+                    <h:panelGroup style="float: right;">
+                        <h:commandButton value="Voltar" class="btn-danger"/>
+                        &nbsp;
+                        <h:commandButton value="Gravar" action="#{usuariosBean.gravarUsuario()}" class="btn-success"/>
+                    </h:panelGroup>   
+                </h:panelGrid>
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+</ui:composition>

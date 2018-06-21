@@ -16,40 +16,48 @@
     </h:head>
 
     <h:body id="body">
-
         <h:form>
-        <div id="top" class="top">
-            <div id="logo">
-                <ui:insert name="content">RM-e</ui:insert>
-            </div>
-            <div id="login">
-                <ul>
-                    <ol>
-                        <h:commandLink action="index"  class="btn btn-success" value="Logar" />
-                        <h:commandLink action="index"  class="btn btn-danger" value="Sair" />
-                    </ol>
-                </ul>
-            </div>
-        </div>
-        <div>
-            <div id="left">
+            <div id="top">
+                    <div id="logo">
+                        RM-e
+                    </div>
                 
+                    <div id="login">
+                        <ul>
+                            <ol>
+                                <h:commandLink action="index"  class="btn btn-success" value="Logar" style="font-size: 15px;"/>
+                                <h:commandLink action="index"  class="btn btn-danger" value="Sair" style="font-size: 15px;"/>
+                            </ol>
+                        </ul>
+                    </div>
             </div>
-            <div id="content" class="left_content">
-                <div id="Menu">
-                    <div id="opcao1">
-                        <h:commandLink action="index" value="Medico" />
-                    </div>
-                    <div id="opcao1">
-                        <h:commandLink action="index" value="Farmaceutico" />
-                    </div>
-                    <div id="opcao1">
-                        <h:commandLink action="index" value="Paciente" />
+            
+            <div id="left">
+                <div id="conteudo-left">
+                    <div id="options">
+                        <ul class="nav nav-pills ddmenu">
+                            <h:panelGroup>
+                                <li class="dropdown active" id="btn"> 
+                                    <h:commandLink  value="Consultas" action="/sec/consultas?faces-redirect=true" style="text-align: center; font-size: 15px;"/>
+                                </li>
+                            </h:panelGroup>
+                        </ul>
+                        <ul class="nav nav-pills ddmenu">    
+                            <h:panelGroup>
+                                <li class="dropdown active"> 
+                                    <h:commandLink  value="Usuarios" action="/sec/usuarios?faces-redirect=true" style="text-align: center; font-size: 15px;"/> 
+                                </li>
+                            </h:panelGroup>
+                        </ul>
                     </div>
                 </div>
-                <ui:insert name="content"></ui:insert>
             </div>
-        </div>
+            
+            <div id="content" class="left_content">
+                <div id="conteudo-content">
+                    <ui:insert name="content"></ui:insert>
+                </div>
+            </div>
         </h:form>
     </h:body>
 

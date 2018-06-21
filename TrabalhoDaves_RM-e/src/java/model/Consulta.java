@@ -10,8 +10,10 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -26,20 +28,22 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author yurid
  */
 @Entity
-@Table(catalog = "rm-e", schema = "")
+@Table(catalog = "rm_e", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Consulta.findAll", query = "SELECT c FROM Consulta c")
-    , @NamedQuery(name = "Consulta.findByIdconsulta", query = "SELECT c FROM Consulta c WHERE c.consultaPK.idconsulta = :idconsulta")
+    , @NamedQuery(name = "Consulta.findByIdconsulta", query = "SELECT c FROM Consulta c WHERE c.idconsulta = :idconsulta")
     , @NamedQuery(name = "Consulta.findByData", query = "SELECT c FROM Consulta c WHERE c.data = :data")
     , @NamedQuery(name = "Consulta.findByLocal", query = "SELECT c FROM Consulta c WHERE c.local = :local")
-    , @NamedQuery(name = "Consulta.findByHora", query = "SELECT c FROM Consulta c WHERE c.hora = :hora")
-    , @NamedQuery(name = "Consulta.findByUsuarioIdusuario", query = "SELECT c FROM Consulta c WHERE c.consultaPK.usuarioIdusuario = :usuarioIdusuario")})
+    , @NamedQuery(name = "Consulta.findByHora", query = "SELECT c FROM Consulta c WHERE c.hora = :hora")})
 public class Consulta implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected ConsultaPK consultaPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(nullable = false)
+    private Integer idconsulta;
     @Column(length = 45)
     private String data;
     @Basic(optional = false)
@@ -47,36 +51,35 @@ public class Consulta implements Serializable {
     private String local;
     @Column(length = 45)
     private String hora;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "consulta")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "consultaIdconsulta")
     private List<Exame> exameList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "consulta")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "consultaIdconsulta")
     private List<Receita> receitaList;
-    @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "usuario_medico", referencedColumnName = "idusuario", nullable = false)
     @ManyToOne(optional = false)
-    private Usuario usuario;
+    private Usuario usuarioMedico;
+    @JoinColumn(name = "usuario_paciente", referencedColumnName = "idusuario", nullable = false)
+    @ManyToOne(optional = false)
+    private Usuario usuarioPaciente;
 
     public Consulta() {
     }
 
-    public Consulta(ConsultaPK consultaPK) {
-        this.consultaPK = consultaPK;
+    public Consulta(Integer idconsulta) {
+        this.idconsulta = idconsulta;
     }
 
-    public Consulta(ConsultaPK consultaPK, String local) {
-        this.consultaPK = consultaPK;
+    public Consulta(Integer idconsulta, String local) {
+        this.idconsulta = idconsulta;
         this.local = local;
     }
 
-    public Consulta(int idconsulta, int usuarioIdusuario) {
-        this.consultaPK = new ConsultaPK(idconsulta, usuarioIdusuario);
+    public Integer getIdconsulta() {
+        return idconsulta;
     }
 
-    public ConsultaPK getConsultaPK() {
-        return consultaPK;
-    }
-
-    public void setConsultaPK(ConsultaPK consultaPK) {
-        this.consultaPK = consultaPK;
+    public void setIdconsulta(Integer idconsulta) {
+        this.idconsulta = idconsulta;
     }
 
     public String getData() {
@@ -121,18 +124,26 @@ public class Consulta implements Serializable {
         this.receitaList = receitaList;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Usuario getUsuarioMedico() {
+        return usuarioMedico;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setUsuarioMedico(Usuario usuarioMedico) {
+        this.usuarioMedico = usuarioMedico;
+    }
+
+    public Usuario getUsuarioPaciente() {
+        return usuarioPaciente;
+    }
+
+    public void setUsuarioPaciente(Usuario usuarioPaciente) {
+        this.usuarioPaciente = usuarioPaciente;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (consultaPK != null ? consultaPK.hashCode() : 0);
+        hash += (idconsulta != null ? idconsulta.hashCode() : 0);
         return hash;
     }
 
@@ -143,7 +154,7 @@ public class Consulta implements Serializable {
             return false;
         }
         Consulta other = (Consulta) object;
-        if ((this.consultaPK == null && other.consultaPK != null) || (this.consultaPK != null && !this.consultaPK.equals(other.consultaPK))) {
+        if ((this.idconsulta == null && other.idconsulta != null) || (this.idconsulta != null && !this.idconsulta.equals(other.idconsulta))) {
             return false;
         }
         return true;
@@ -151,7 +162,7 @@ public class Consulta implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Consulta[ consultaPK=" + consultaPK + " ]";
+        return "model.Consulta[ idconsulta=" + idconsulta + " ]";
     }
     
 }
