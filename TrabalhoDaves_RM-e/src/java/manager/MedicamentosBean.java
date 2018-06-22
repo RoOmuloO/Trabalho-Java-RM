@@ -23,9 +23,13 @@ public class MedicamentosBean {
         medicamentos = medicamentoDao.findAll();
     }
     
+    public void voltar(){
+        status = "View";
+    }
+    
     public String gravarMedicamento() {    
        medicamentoDao.salvar(medicamento);
-       status = "Cad";
+       status = "View";
        medicamentos = medicamentoDao.findAll();
        FacesContext.getCurrentInstance().addMessage("OK", new FacesMessage("Medicamento salvo com SUCESSO"));
        return "";

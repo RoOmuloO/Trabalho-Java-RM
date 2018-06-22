@@ -41,6 +41,12 @@ public class ConsultasBean {
 
     }
     
+    public String voltar(){
+        status = "View";
+        consulta = null;
+        return "";
+    }
+    
     public String gravarConsulta() {    
        consultaDao.salvar(consulta);
        status = "Cad";

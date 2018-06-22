@@ -24,6 +24,10 @@ public class UsuariosBean {
         usuario = new Usuario();
     }
     
+    public void voltar(){
+        status = "View";
+    }
+    
     public String gravarUsuario() {    
        usuarioDao.salvar(usuario);
        status = "View";

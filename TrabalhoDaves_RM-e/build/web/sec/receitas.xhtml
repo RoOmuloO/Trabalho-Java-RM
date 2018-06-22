@@ -6,10 +6,10 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     
     <ui:define name="content">
-        <h2>Usuarios</h2>
+        <h2>Receitas</h2>
         <h:form id="form">
             <h:panelGroup id="lista" rendered="#{receitasBean.status == 'View'}">
-                <h:commandButton value="Novo Veiculo" action="#{receitasBean.novaReceita()}" id="novo"/>
+                <h:commandButton value="Nova Receita" action="#{receitasBean.novaReceita()}" id="novo" class="btn-success"/>
                 
                 <h:dataTable value="#{receitasBean.receitas}" var="v"
                              border="1" style="width: 100%" class="table-bordered">   
@@ -72,17 +72,23 @@
                 
                 <h:panelGrid columns="2">
                     
+                    Consulta: <h:selectOneListbox value="#{receitasBean.receita.consultaIdconsulta}">
+                        <f:selectItems value="#{receitasBean.consultas}" var="m" itemLabel="#{m.usuarioPaciente.nome} - #{m.data}" itemValue="#{m.idconsulta}" />                        
+                    </h:selectOneListbox>
+                    
                     Data: <h:inputText value="#{receitasBean.receita.data}" required="true" label="Nome" style="height: 30px; width: 219;"/>
                     
                     Hora: <h:inputText value="#{receitasBean.receita.hora}" required="true" label="Login" style="height: 30px; width: 219;"/>
                     
-                    Medicamentos: <h:selectManyListbox value="#{receitasBean.receita.receitaHasMedicamentoList}">
-                        <f:selectItems value="#{veiculosBean.modelos}" var="m" itemLabel="#{m.descricao}" itemValue="#{m.idmodelo}" />                        
+                    Medicamentos: <h:selectManyListbox value="#{receitasBean.receberMedicamentos}">
+                        <f:selectItems value="#{receitasBean.medicamentos}" var="m" itemLabel="#{m.nome}" itemValue="#{m.idmedicamento}"/>                        
                     </h:selectManyListbox>
+                    
+                    Instruções de uso: <h:inputTextarea value="#{receitasBean.receita.instrucoesUso}" required="true" label="instrucoes" />
                     
                     <h:panelGroup />
                     <h:panelGroup style="float: right;">
-                        <h:commandButton value="Voltar" class="btn-danger"/>
+                        <h:commandButton value="Voltar" class="btn-danger" action="#{receitasBean.voltar()}"/>
                         &nbsp;
                         <h:commandButton value="Gravar" action="#{usuariosBean.gravarUsuario()}" class="btn-success"/>
                     </h:panelGroup>   

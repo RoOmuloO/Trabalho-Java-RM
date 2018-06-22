@@ -9,7 +9,7 @@
         <h2>Usuarios</h2>
         <h:form id="form">
             <h:panelGroup id="lista" rendered="#{medicamentosBean.status == 'View'}">
-                <h:commandButton value="Novo Veiculo" action="#{medicamentosBean.novoMedicamento()}" id="novo"/>
+                <h:commandButton value="Novo Veiculo" action="#{medicamentosBean.novoMedicamento()}" id="novo" class="btn-success"/>
                 
                 <h:dataTable value="#{medicamentosBean.medicamentos}" var="m"
                              border="1" style="width: 100%" class="table-bordered">   
@@ -69,7 +69,7 @@
                     
                     <h:panelGroup />
                     <h:panelGroup style="float: right;">
-                        <h:commandButton value="Voltar" class="btn-danger"/>
+                        <h:commandButton value="Voltar" class="btn-danger" action="#{medicamentosBean.voltar()}"/>
                         &nbsp;
                         <h:commandButton value="Gravar" action="#{medicamentosBean.gravarMedicamento()}" class="btn-success"/>
                     </h:panelGroup>   
