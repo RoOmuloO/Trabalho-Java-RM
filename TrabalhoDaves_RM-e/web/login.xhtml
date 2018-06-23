@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/Template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="content">
+        <div style="margin: 0 auto; background-color: graytext;
+              padding: 10px;">
+            <h:form id="form">
+                <h:panelGrid columns="2">
+                    LOGIN <h:inputText value="#{loginBean.login}" required="true" />
+                    SENHA <h:inputSecret value="#{loginBean.senha}"/>
+                    
+                    <h:commandButton value="OK" action="#{loginBean.validaLogin()}" />
+
+                </h:panelGrid>
+                <!--<h:outputLabel value="#{loginBean.msgErro}" />-->
+
+            </h:form>
+        </div>
+    </ui:define>
+
+</ui:composition>

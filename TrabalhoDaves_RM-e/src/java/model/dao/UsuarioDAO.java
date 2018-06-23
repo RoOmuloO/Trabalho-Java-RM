@@ -3,6 +3,8 @@ package model.dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import model.Usuario;
@@ -69,6 +71,23 @@ public class UsuarioDAO {
         } catch (Exception e) {
             return null;
         }
+    }
+    
+    public Usuario login(String login, String senha){
+        Query q = em.createQuery("select u from Usuario u "
+                + "where u.login = :log and u.senha = :sen");
+        q.setParameter("log", login);
+        q.setParameter("sen", senha);
+        
+        try{
+            return (Usuario) q.getSingleResult();
+        } catch (NoResultException e){
+            return null;
+        } catch (NonUniqueResultException e)
+        {
+            return null;
+        }       
+                
     }
     
     public EntityManager getEntityManager() {
