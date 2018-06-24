@@ -36,8 +36,10 @@ public class ReceitasBean {
         receitas = receitaDao.findAll();
     }
     
-    public void voltar(){
+    public String voltar(){
         status = "View";
+        receita = null;
+        return "";
     }
     
     public String gravarReceita() {    

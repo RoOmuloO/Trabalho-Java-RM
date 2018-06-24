@@ -49,7 +49,7 @@ public class ConsultasBean {
     
     public String gravarConsulta() {    
        consultaDao.salvar(consulta);
-       status = "Cad";
+       status = "View";
        consultas = consultaDao.findAll();
        FacesContext.getCurrentInstance().addMessage("OK", new FacesMessage("Consulta salva com SUCESSO"));
        return "";

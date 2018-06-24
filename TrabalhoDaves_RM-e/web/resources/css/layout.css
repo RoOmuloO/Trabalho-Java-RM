@@ -111,6 +111,13 @@ a:link:hover{
     padding-bottom: 25px;
 }
 
+#formVoltar{
+    width: 100px;
+    float: left;
+    margin-top: -50px;
+    margin-left: 48px;
+}
+
 
 
 

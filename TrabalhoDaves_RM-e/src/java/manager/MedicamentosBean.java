@@ -23,8 +23,10 @@ public class MedicamentosBean {
         medicamentos = medicamentoDao.findAll();
     }
     
-    public void voltar(){
+    public String voltar(){
         status = "View";
+        medicamento = null;
+        return "";
     }
     
     public String gravarMedicamento() {    

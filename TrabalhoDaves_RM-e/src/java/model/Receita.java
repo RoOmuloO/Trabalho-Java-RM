@@ -35,8 +35,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Receita.findByIdreceita", query = "SELECT r FROM Receita r WHERE r.idreceita = :idreceita")
     , @NamedQuery(name = "Receita.findByUsada", query = "SELECT r FROM Receita r WHERE r.usada = :usada")
     , @NamedQuery(name = "Receita.findByCancelada", query = "SELECT r FROM Receita r WHERE r.cancelada = :cancelada")
-    , @NamedQuery(name = "Receita.findByHora", query = "SELECT r FROM Receita r WHERE r.hora = :hora")
-    , @NamedQuery(name = "Receita.findByData", query = "SELECT r FROM Receita r WHERE r.data = :data")
     , @NamedQuery(name = "Receita.findByInstrucoesUso", query = "SELECT r FROM Receita r WHERE r.instrucoesUso = :instrucoesUso")})
 public class Receita implements Serializable {
 
@@ -46,14 +44,8 @@ public class Receita implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer idreceita;
-    private Short usada;
-    private Short cancelada;
-    @Basic(optional = false)
-    @Column(nullable = false, length = 45)
-    private String hora;
-    @Basic(optional = false)
-    @Column(nullable = false, length = 45)
-    private String data;
+    private boolean usada;
+    private boolean cancelada;
     @Basic(optional = false)
     @Column(name = "instrucoes_uso", nullable = false, length = 45)
     private String instrucoesUso;
@@ -70,10 +62,8 @@ public class Receita implements Serializable {
         this.idreceita = idreceita;
     }
 
-    public Receita(Integer idreceita, String hora, String data, String instrucoesUso) {
+    public Receita(Integer idreceita, String instrucoesUso) {
         this.idreceita = idreceita;
-        this.hora = hora;
-        this.data = data;
         this.instrucoesUso = instrucoesUso;
     }
 
@@ -85,36 +75,20 @@ public class Receita implements Serializable {
         this.idreceita = idreceita;
     }
 
-    public Short getUsada() {
+    public boolean getUsada() {
         return usada;
     }
 
-    public void setUsada(Short usada) {
+    public void setUsada(boolean usada) {
         this.usada = usada;
     }
 
-    public Short getCancelada() {
+    public boolean getCancelada() {
         return cancelada;
     }
 
-    public void setCancelada(Short cancelada) {
+    public void setCancelada(boolean cancelada) {
         this.cancelada = cancelada;
-    }
-
-    public String getHora() {
-        return hora;
-    }
-
-    public void setHora(String hora) {
-        this.hora = hora;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
     }
 
     public String getInstrucoesUso() {

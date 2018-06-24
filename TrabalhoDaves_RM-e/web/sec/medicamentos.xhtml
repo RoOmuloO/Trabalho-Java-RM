@@ -3,6 +3,7 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./../WEB-INF/Template.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     
     <ui:define name="content">
@@ -69,12 +70,13 @@
                     
                     <h:panelGroup />
                     <h:panelGroup style="float: right;">
-                        <h:commandButton value="Voltar" class="btn-danger" action="#{medicamentosBean.voltar()}"/>
-                        &nbsp;
                         <h:commandButton value="Gravar" action="#{medicamentosBean.gravarMedicamento()}" class="btn-success"/>
                     </h:panelGroup>   
                 </h:panelGrid>
             </h:panelGroup>
+        </h:form>
+        <h:form   rendered="#{medicamentosBean.status == 'Cad'}" id="formVoltar">
+            <h:commandButton value="Voltar" class="btn-danger" immediate="true" action="#{medicamentosBean.voltar()}"/>
         </h:form>
     </ui:define>
 
