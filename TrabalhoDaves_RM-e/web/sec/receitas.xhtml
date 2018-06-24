@@ -9,8 +9,10 @@
     <ui:define name="content">
         <h2>Receitas</h2>
         <h:form id="form">
-            <h:panelGroup id="lista" rendered="#{receitasBean.status == 'View'}">
+            <h:panelGroup id="lista" rendered="#{receitasBean.status == 'View'}" >
+                <h:panelGroup rendered="#{loginBean.usuario.tipo == 4 or loginBean.usuario.tipo == 1}">
                 <h:commandButton value="Nova Receita" action="#{receitasBean.novaReceita()}" id="novo" class="btn-success"/>
+                </h:panelGroup>
                 
                 <h:dataTable value="#{receitasBean.receitas}" var="v"
                              border="1" style="width: 100%" class="table-bordered">   

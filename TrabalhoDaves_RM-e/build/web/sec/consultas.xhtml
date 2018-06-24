@@ -7,11 +7,12 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-        <h2>Usuarios</h2>
+        <h2>Consultas</h2>
         <h:form id="form">
             <h:panelGroup id="lista" rendered="#{consultasBean.status == 'View'}">
+                <h:panelGroup rendered="#{loginBean.usuario.tipo == 4 or loginBean.usuario.tipo == 1}">
                 <h:commandButton value="Nova Consulta" action="#{consultasBean.novaConsulta()}" class="btn-success"/>
-                
+                </h:panelGroup>
                 <h:dataTable value="#{consultasBean.consultas}" var="v"
                              border="1" style="width: 100%" class="table-bordered">   
                     <h:column>

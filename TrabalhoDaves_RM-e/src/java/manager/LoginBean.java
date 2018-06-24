@@ -43,7 +43,7 @@ public class LoginBean {
         }   
         
     }
-
+    
     public String getLogin() {
         return login;
     }
