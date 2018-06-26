@@ -23,10 +23,16 @@ public class LoginBean {
     private String login, senha, msgErro;
     private Usuario usuario;
     
-    /**
-     * Creates a new instance of LoginBean
-     */
     public LoginBean() {
+    }
+    
+    public String logar(){
+        return "login?faces-redirect=true";
+    }
+    
+    public String sair(){   
+        FacesContext.getCurrentInstance(). getExternalContext().invalidateSession();
+        return "/login?faces-redirect=true";
     }
     
     public String validaLogin(){

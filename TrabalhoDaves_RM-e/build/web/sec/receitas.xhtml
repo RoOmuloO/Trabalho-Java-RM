@@ -42,18 +42,6 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            Data
-                        </f:facet>
-                            ${v.dataVenda}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            Hora
-                        </f:facet>
-                            ${v.horaVenda}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
                             Usada
                         </f:facet>
                             ${v.usada}
@@ -63,9 +51,9 @@
                         <f:facet name="header">
                             Ações
                         </f:facet>
-                        <h:commandLink value="Edit"/>
+                        <h:commandLink value="Edit" class="editar"/>
                         &nbsp;
-                        <h:commandLink value="Apagar" />
+                        <h:commandLink value="Apagar" style="color: red;"/>
                     </h:column>
                     
                 </h:dataTable>
@@ -78,10 +66,6 @@
                     Consulta: <h:selectOneListbox value="#{receitasBean.receita.consultaIdconsulta}">
                         <f:selectItems value="#{receitasBean.consultas}" var="m" itemLabel="#{m.usuarioPaciente.nome} - #{m.data}" itemValue="#{m.idconsulta}" />                        
                     </h:selectOneListbox>
-                    
-                    Data: <h:inputText value="#{receitasBean.receita.data}" required="true" label="Nome" style="height: 30px; width: 219;"/>
-                    
-                    Hora: <h:inputText value="#{receitasBean.receita.hora}" required="true" label="Login" style="height: 30px; width: 219;"/>
                     
                     Medicamentos: <h:selectManyListbox value="#{receitasBean.receberMedicamentos}">
                         <f:selectItems value="#{receitasBean.medicamentos}" var="m" itemLabel="#{m.nome}" itemValue="#{m.idmedicamento}"/>                        

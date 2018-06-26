@@ -26,54 +26,55 @@
                         <ul>
                             <ol>
                                 <h:panelGroup rendered="#{loginBean.usuario == null}">
-                                <h:commandLink action="login"  class="btn btn-success" value="Logar" style="font-size: 15px;"/>
+                                    <h:commandLink action="#{loginBean.logar()}"  class="btn btn-success" value="Logar" style="font-size: 15px;"/>
                                 </h:panelGroup>
                                 <h:panelGroup rendered="#{loginBean.usuario != null}">
-                                <h:commandLink action="index"  class="btn btn-danger" value="Sair" style="font-size: 15px;"/>
+                                    <h:commandLink action="#{loginBean.sair()}"  class="btn btn-danger" value="Sair" style="font-size: 15px;"/>
                                 </h:panelGroup>
                             </ol>
                         </ul>
                     </div>
             </div>
-            
+        </h:form>
+        <h:form>
             <div id="left">
                 <div id="conteudo-left">
                     <div id="options">
+                        <h:panelGroup rendered="#{loginBean.usuario != null and loginBean.usuario.tipo == 1 or loginBean.usuario.tipo == 4}">
                         <ul class="nav nav-pills ddmenu">
-                            <h:panelGroup rendered="#{loginBean.usuario != null and loginBean.usuario.tipo == 1 or loginBean.usuario.tipo == 4}">
-                                <li class="dropdown active" id="btn"> 
-                                    <h:commandLink  value="Consultas" action="/sec/consultas?faces-redirect=true" style="text-align: center; font-size: 15px;"/>
-                                </li>
-                            </h:panelGroup>
+                            <li class="dropdown active" id="btn"> 
+                                <h:commandLink  value="Consultas" action="/sec/consultas?faces-redirect=true" style="text-align: center; font-size: 15px;"/>
+                            </li>
                         </ul>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{loginBean.usuario != null and loginBean.usuario.tipo == 1 or loginBean.usuario.tipo == 2 or loginBean.usuario.tipo == 4}">
                         <ul class="nav nav-pills ddmenu">    
-                            <h:panelGroup rendered="#{loginBean.usuario != null and loginBean.usuario.tipo == 4}">
-                                <li class="dropdown active"> 
-                                    <h:commandLink  value="Usuarios" action="/sec/usuarios?faces-redirect=true" style="text-align: center; font-size: 15px;"/> 
-                                </li>
-                            </h:panelGroup>
+                            <li class="dropdown active"> 
+                                <h:commandLink  value="Medicamento" action="/sec/medicamentos?faces-redirect=true" style="text-align: center; font-size: 15px;"/> 
+                            </li>
                         </ul>
-                        <ul class="nav nav-pills ddmenu">    
-                            <h:panelGroup rendered="#{loginBean.usuario != null and loginBean.usuario.tipo == 1 or loginBean.usuario.tipo == 2 or loginBean.usuario.tipo == 4}">
-                                <li class="dropdown active"> 
-                                    <h:commandLink  value="Medicamento" action="/sec/medicamentos?faces-redirect=true" style="text-align: center; font-size: 15px;"/> 
-                                </li>
-                            </h:panelGroup>
-                        </ul>
-                        <ul class="nav nav-pills ddmenu">    
-                            <h:panelGroup rendered="#{loginBean.usuario != null and loginBean.usuario.tipo == 1 or loginBean.usuario.tipo == 4}">
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{loginBean.usuario != null and loginBean.usuario.tipo == 1 or loginBean.usuario.tipo == 4}">
+                        <ul class="nav nav-pills ddmenu">     
                                 <li class="dropdown active"> 
                                     <h:commandLink  value="Exame" action="/sec/exames?faces-redirect=true" style="text-align: center; font-size: 15px;"/> 
-                                </li>
-                            </h:panelGroup>
+                                </li>   
                         </ul>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{loginBean.usuario != null}">
                         <ul class="nav nav-pills ddmenu">    
-                            <h:panelGroup rendered="#{loginBean.usuario != null}">
                                 <li class="dropdown active"> 
                                     <h:commandLink  value="Receita" action="/sec/receitas?faces-redirect=true" style="text-align: center; font-size: 15px;"/> 
                                 </li>
-                            </h:panelGroup>
                         </ul>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{loginBean.usuario != null and loginBean.usuario.tipo == 4}">
+                        <ul class="nav nav-pills ddmenu">    
+                                <li class="dropdown active"> 
+                                    <h:commandLink  value="Usuarios" action="/sec/usuarios?faces-redirect=true" style="text-align: center; font-size: 15px;"/> 
+                                </li>
+                        </ul>
+                        </h:panelGroup>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../WEB-INF/Template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        
+        <h3> Visualizando Receita </h3>
+        <hr/>
+        
+        <p style="float: left;font-weight: bold;">Status :</p>
+        <h:outputLabel rendered="#{receitasBean.receita.usada == true}" value="Usada" style="font-weight: bold; size: 20px; color: #da4f49;"/>
+        <h:outputLabel rendered="#{receitasBean.receita.usada == false}" value="Não Usada" style="font-weight: bold; size: 20px; color: #5bb75b;"/>
+        <h:outputLabel rendered="#{receitasBean.receita.cancelada == true}" value="Cancelada" style="font-weight: bold; size: 20px; color: #da4f49;"/>
+        
+        <br/>
+        <br/>
+        <h4> Consulta</h4>
+        <hr/>
+       
+        <p style="float: left;font-weight: bold;">Local :</p>
+        <h:outputLabel value="#{receitasBean.receita.consultaIdconsulta.local}"/><br/><br/>
+        
+        <p style="float: left;font-weight: bold;">Medico :</p>
+        <h:outputLabel value="#{receitasBean.receita.consultaIdconsulta.usuarioMedico.nome}"/><br/><br/>
+        
+        <p style="float: left;font-weight: bold;">Paciente :</p>
+        <h:outputLabel value="#{receitasBean.receita.consultaIdconsulta.usuarioPaciente.nome}"/><br/><br/>
+        
+        <p style="float: left;font-weight: bold;">Data :</p>
+        <h:outputLabel value="#{receitasBean.receita.consultaIdconsulta.data}"/><br/><br/>
+        
+        <h4> Medicamentos</h4>
+        <hr/>
+        
+        <h:dataTable value="#{receitasBean.receitaHasMedicamentos}" var="v" style="width: 100%" class="table-condensed">   
+                    <h:column>
+                        <f:facet name="header">
+                            Nome
+                        </f:facet>
+                            ${v.medicamento.nome}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Descrição
+                        </f:facet>
+                            ${v.medicamento.descricao}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Tipo
+                        </f:facet>
+                            ${v.medicamento.tipo}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Manipuladoura
+                        </f:facet>
+                            ${v.medicamento.manipuladoura}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Vendido
+                        </f:facet>
+                        <h:outputLabel rendered="#{v.vendido == true}" value="Vendido" style="color: #da4f49; font-weight: bold;"/>
+                        <h:outputLabel rendered="#{v.vendido == false}" value="Não Vendido" style="color: #5bb75b; font-weight: bold;"/>
+                    </h:column>
+                    <h:column>]
+                        <f:facet name="header">
+                            Ações
+                        </f:facet>
+                        <h:commandLink rendered="#{v.vendido == false}" value="Vender" style="color: #5bb75b;"/>
+                    </h:column>
+                    
+                </h:dataTable>
+        
+        
+        
+    </ui:define>
+
+</ui:composition>

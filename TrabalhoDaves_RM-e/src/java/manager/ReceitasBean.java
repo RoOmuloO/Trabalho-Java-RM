@@ -24,6 +24,8 @@ public class ReceitasBean {
     private ReceitaDAO receitaDao;
     
     private List<Medicamento> medicamentos;
+    private List<ReceitaHasMedicamento> receitaHasMedicamentos;
+    
     private List<Integer> ReceberMedicamentos;
     private MedicamentoDAO medicamentoDao;
     
@@ -53,7 +55,7 @@ public class ReceitasBean {
         status = "Cad";
         receita = new Receita();
         
-        ReceberMedicamentos = new ArrayList<Integer>();
+        ReceberMedicamentos = new ArrayList<Integer>();//mudar para uma lista de receitaHasMedicamentos
         
         consultaDao = new ConsultaDAO();
         consultas = consultaDao.findAll();
@@ -109,6 +111,14 @@ public class ReceitasBean {
 
     public void setConsultas(List<Consulta> consultas) {
         this.consultas = consultas;
+    }
+
+    public List<ReceitaHasMedicamento> getReceitaHasMedicamentos() {
+        return receitaHasMedicamentos;
+    }
+
+    public void setReceitaHasMedicamentos(List<ReceitaHasMedicamento> receitaHasMedicamentos) {
+        this.receitaHasMedicamentos = receitaHasMedicamentos;
     }
     
     

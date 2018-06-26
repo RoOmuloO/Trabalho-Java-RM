@@ -55,9 +55,9 @@
                         <f:facet name="header">
                             Ações
                         </f:facet>
-                        <h:commandLink value="Edit"/>
+                        <h:commandLink value="Visualizar" class="editar"/>
                         &nbsp;
-                        <h:commandLink value="Apagar" />
+                        <h:commandLink value="Cancelar" style="color: da4f49;"/>
                     </h:column>
                     
                 </h:dataTable>
@@ -67,11 +67,11 @@
                 
                 <h:panelGrid columns="2">
  
-                    Nome: <h:inputText value="#{consultasBean.consulta.local}" required="true" label="Nome" style="height: 30px; width: 219;"/>
+                    Local: <h:inputText value="#{consultasBean.consulta.local}" required="true" label="Nome" style="height: 30px; width: 219;"/>
                     
-                    Login: <h:inputText value="#{consultasBean.consulta.data}" required="true" label="Login" style="height: 30px; width: 219;"/>
+                    Data: <h:inputText value="#{consultasBean.consulta.data}" required="true" label="Login" style="height: 30px; width: 219;"/>
                     
-                    Senha: <h:inputText value="#{consultasBean.consulta.hora}" required="true" label="Login" style="height: 30px; width: 219;"/>
+                    Hora: <h:inputText value="#{consultasBean.consulta.hora}" required="true" label="Login" style="height: 30px; width: 219;"/>
                     
                     Medico: <h:selectOneListbox value="#{consultasBean.consulta.usuarioMedico.idusuario}">
                         <f:selectItems value="#{consultasBean.medicos}" var="m" itemLabel="#{m.nome}" itemValue="#{m.idusuario}" />                      

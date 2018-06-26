@@ -47,7 +47,10 @@ public class ConsultasBean {
         return "";
     }
     
-    public String gravarConsulta() {    
+    public String gravarConsulta() {
+        consulta.setUsuarioMedico(usuarioDao.findById(consulta.getUsuarioMedico().getIdusuario()));
+        consulta.setUsuarioPaciente(usuarioDao.findById(consulta.getUsuarioPaciente().getIdusuario()));
+        
        consultaDao.salvar(consulta);
        status = "View";
        consultas = consultaDao.findAll();
