@@ -1,6 +1,8 @@
 package manager;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -13,10 +15,13 @@ import model.ReceitaHasMedicamento;
 import model.dao.ConsultaDAO;
 import model.dao.MedicamentoDAO;
 import model.dao.ReceitaDAO;
+import model.dao.ReceitaHasMedicamentoDAO;
 
 @ManagedBean
 @ViewScoped
 public class ReceitasBean {
+    
+    private String msgErro;
 
     private String status;
     private Receita receita;
@@ -24,7 +29,10 @@ public class ReceitasBean {
     private ReceitaDAO receitaDao;
     
     private List<Medicamento> medicamentos;
+    
     private List<ReceitaHasMedicamento> receitaHasMedicamentos;
+    private ReceitaHasMedicamentoDAO receitaHasMedicamentoDao;
+    private ReceitaHasMedicamento receitaHasMedicamento;
     
     private List<Integer> ReceberMedicamentos;
     private MedicamentoDAO medicamentoDao;
@@ -34,11 +42,84 @@ public class ReceitasBean {
     
     public ReceitasBean() {
         status = "View";
+        receitaHasMedicamentoDao = new ReceitaHasMedicamentoDAO();
+        medicamentoDao = new MedicamentoDAO();
         receitaDao = new ReceitaDAO();
         receitas = receitaDao.findAll();
+        medicamentos = new ArrayList<Medicamento>();
+    }
+    
+    public String cancelar(Integer id){
+        msgErro = null;
+        
+        receita = receitaDao.findById(id);
+        
+        receitaHasMedicamentos = receitaHasMedicamentoDao.findByIdReceita(id);
+        
+        int cont = 0;
+        for(int i=0; i < receitaHasMedicamentos.size(); i++){
+            if(receitaHasMedicamentos.get(i).getVendido() == true){
+                msgErro = "Não é possivel cancelar, pois já existe um medicamento vendido";
+                return "";
+            }
+        }
+        
+        receita.setCancelada(true);
+        
+        receitaDao.salvar(receita);
+        
+        return "";
+    }
+    
+    public String vender(Integer id){
+        msgErro = null;
+        
+        receitaHasMedicamento = receitaHasMedicamentoDao.findByIdMedicamento(receita.getIdreceita(), id);
+        
+        receitaHasMedicamento.setVendido(true);
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String data = sdf.format(new Date());
+        
+        receitaHasMedicamento.setDataVenda(data);
+        
+        int cont = 0;
+        for(int i=0; i < receitaHasMedicamentos.size(); i++){
+            if(receitaHasMedicamentos.get(i).getVendido() == true)
+                cont++;
+        }
+        
+        if(cont == receitaHasMedicamentos.size()){
+            receita.setUsada(true);
+        }
+            
+        
+        receitaHasMedicamentoDao.salvar(receitaHasMedicamento);
+        
+        receitaHasMedicamentos = receitaHasMedicamentoDao.findByIdReceita(receita.getIdreceita());
+        
+        return "";
+    }
+    
+    public String visualizar(Integer id){
+        msgErro = null;
+        
+        receita = receitaDao.findById(id);
+        
+        receitaHasMedicamentos = new ArrayList<ReceitaHasMedicamento>();
+        receitaHasMedicamentos = receitaHasMedicamentoDao.findByIdReceita(receita.getIdreceita());
+        
+        for(int i=0; i < receitaHasMedicamentos.size(); i++){
+            medicamentos.add(medicamentoDao.findById(receitaHasMedicamentos.get(i).getMedicamento().getIdmedicamento()));
+        }
+        
+        status = "Visualizar";
+        
+        return "";
     }
     
     public String voltar(){
+        msgErro = null;
         status = "View";
         receita = null;
         return "";
@@ -119,6 +200,22 @@ public class ReceitasBean {
 
     public void setReceitaHasMedicamentos(List<ReceitaHasMedicamento> receitaHasMedicamentos) {
         this.receitaHasMedicamentos = receitaHasMedicamentos;
+    }
+
+    public String getMsgErro() {
+        return msgErro;
+    }
+
+    public void setMsgErro(String msgErro) {
+        this.msgErro = msgErro;
+    }
+
+    public ReceitaHasMedicamento getReceitaHasMedicamento() {
+        return receitaHasMedicamento;
+    }
+
+    public void setReceitaHasMedicamento(ReceitaHasMedicamento receitaHasMedicamento) {
+        this.receitaHasMedicamento = receitaHasMedicamento;
     }
     
     

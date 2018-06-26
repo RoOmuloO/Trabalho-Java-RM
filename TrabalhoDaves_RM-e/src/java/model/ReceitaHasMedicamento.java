@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ReceitaHasMedicamento.findAll", query = "SELECT r FROM ReceitaHasMedicamento r")
     , @NamedQuery(name = "ReceitaHasMedicamento.findByReceitaIdreceita", query = "SELECT r FROM ReceitaHasMedicamento r WHERE r.receitaHasMedicamentoPK.receitaIdreceita = :receitaIdreceita")
     , @NamedQuery(name = "ReceitaHasMedicamento.findByMedicamentoIdmedicamento", query = "SELECT r FROM ReceitaHasMedicamento r WHERE r.receitaHasMedicamentoPK.medicamentoIdmedicamento = :medicamentoIdmedicamento")
+    , @NamedQuery(name = "ReceitaHasMedicamento.findByMedicamentoIdmedicamentoAndReceita", query = "SELECT r FROM ReceitaHasMedicamento r WHERE r.receitaHasMedicamentoPK.medicamentoIdmedicamento = :Idmedicamento AND r.receitaHasMedicamentoPK.receitaIdreceita = :Idreceita")
     , @NamedQuery(name = "ReceitaHasMedicamento.findByVendido", query = "SELECT r FROM ReceitaHasMedicamento r WHERE r.vendido = :vendido")
     , @NamedQuery(name = "ReceitaHasMedicamento.findByDataVenda", query = "SELECT r FROM ReceitaHasMedicamento r WHERE r.dataVenda = :dataVenda")})
 public class ReceitaHasMedicamento implements Serializable {

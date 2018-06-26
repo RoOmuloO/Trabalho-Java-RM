@@ -8,9 +8,16 @@
     
     <ui:define name="content">
         <h2>Receitas</h2>
+        
+        
+        
         <h:form id="form">
+            
             <h:panelGroup id="lista" rendered="#{receitasBean.status == 'View'}" >
                 <h:panelGroup rendered="#{loginBean.usuario.tipo == 4 or loginBean.usuario.tipo == 1}">
+                
+                <h:outputLabel rendered="#{receitasBean.msgErro != null}" value="#{receitasBean.msgErro}" style="color: #da4f49; font-weight: bold;"/>    
+                    
                 <h:commandButton value="Nova Receita" action="#{receitasBean.novaReceita()}" id="novo" class="btn-success"/>
                 </h:panelGroup>
                 
@@ -44,16 +51,24 @@
                         <f:facet name="header">
                             Usada
                         </f:facet>
-                            ${v.usada}
+                        <h:outputLabel rendered="#{v.usada == true}" value="Usada" style="color: #da4f49; font-weight: bold;"/>
+                        <h:outputLabel rendered="#{v.usada == false}" value="Não usada" style="color: #5bb75b; font-weight: bold;"/>
+                    </h:column>
+                    <h:column >
+                        <f:facet name="header">
+                            Cancelada
+                        </f:facet>
+                        <h:outputLabel rendered="#{v.cancelada == true and v.usada == false}" value="Cancelada" style="color: #da4f49; font-weight: bold;"/>
+                        <h:outputLabel rendered="#{v.cancelada == false and v.usada == false}" value="Não cancelada" style="color: #5bb75b; font-weight: bold;"/>
                     </h:column>
 
                     <h:column>
                         <f:facet name="header">
                             Ações
                         </f:facet>
-                        <h:commandLink value="Edit" class="editar"/>
+                        <h:commandLink value="Visualizar" class="editar" action="#{receitasBean.visualizar(v.idreceita)}"/>
                         &nbsp;
-                        <h:commandLink value="Apagar" style="color: red;"/>
+                        <h:commandLink rendered="#{v.usada == true or v.cancelada == true}" value="Cancelar" style="color: #da4f49;" action="#{receitasBean.cancelar(v.idreceita)}"/>
                     </h:column>
                     
                 </h:dataTable>
@@ -83,6 +98,92 @@
         <h:form   rendered="#{receitasBean.status == 'Cad'}" id="formVoltar">
             <h:commandButton value="Voltar" class="btn-danger" immediate="true" action="#{receitasBean.voltar()}"/>
         </h:form>
+        
+        <h:panelGroup id="lista" rendered="#{receitasBean.status == 'Visualizar'}" >
+        
+            <h3> Visualizando Receita </h3>
+            <hr/>
+
+            <p style="float: left;font-weight: bold;">Status:</p>
+            <h:outputLabel rendered="#{receitasBean.receita.usada == true and receitasBean.receita.cancelada == false}" value="Usada" style="font-weight: bold; size: 20px; color: #da4f49;"/>
+            <h:outputLabel rendered="#{receitasBean.receita.usada == false and receitasBean.receita.cancelada == false}" value="Não Usada" style="font-weight: bold; size: 20px; color: #5bb75b;"/>
+            <h:outputLabel rendered="#{receitasBean.receita.cancelada == true}" value="Cancelada" style="font-weight: bold; size: 20px; color: #da4f49;"/>
+
+            <br/><br/>
+            <h4> Consulta</h4>
+            <hr/>
+
+            <p style="float: left;font-weight: bold;">Local:  </p>
+            <h:outputLabel value="#{receitasBean.receita.consultaIdconsulta.local}"/><br/><br/>
+
+            <p style="float: left;font-weight: bold;">Medico:  </p>
+            <h:outputLabel value="#{receitasBean.receita.consultaIdconsulta.usuarioMedico.nome}"/><br/><br/>
+
+            <p style="float: left;font-weight: bold;">Paciente:  </p>
+            <h:outputLabel value="#{receitasBean.receita.consultaIdconsulta.usuarioPaciente.nome}"/><br/><br/>
+
+            <p style="float: left;font-weight: bold;">Data:  </p>
+            <h:outputLabel value="#{receitasBean.receita.consultaIdconsulta.data}"/><br/><br/><br/>
+
+            <h4> Medicamentos</h4>
+            <hr/>
+
+            <h:dataTable value="#{receitasBean.receitaHasMedicamentos}" var="v" style="width: 100%" class="table-condensed">   
+                <h:column>
+                    <f:facet name="header">
+                        Nome
+                    </f:facet>
+                        ${v.medicamento.nome}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Descrição
+                    </f:facet>
+                        ${v.medicamento.descricao}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Tipo
+                    </f:facet>
+                        ${v.medicamento.tipo}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Manipuladoura
+                    </f:facet>
+                        ${v.medicamento.manipuladoura}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Vendido
+                    </f:facet>
+                    <h:outputLabel rendered="#{v.vendido == true}" value="Vendido - #{v.dataVenda}" style="color: #da4f49; font-weight: bold;"/>
+                    <h:outputLabel rendered="#{v.vendido == false}" value="Não Vendido" style="color: #5bb75b; font-weight: bold;"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Ações
+                    </f:facet>
+                    <h:panelGroup rendered="#{v.vendido == false}">
+                        <h:form>
+                            <h:commandLink value="Vender" style="color: #5bb75b;" action="#{receitasBean.vender(v.medicamento.idmedicamento)}"/>
+                        </h:form>
+                    </h:panelGroup>
+                </h:column>       
+            </h:dataTable>
+            <br/><br/><br/>
+
+            <h4> Instruções de uso </h4>
+            <hr/>
+
+            <p style="float: left;font-weight: bold;">Data :</p>
+            <h:inputTextarea value="#{receitasBean.receita.instrucoesUso}" style="width: 100%;"/>
+        
+            <h:form   rendered="#{receitasBean.status == 'Visualizar'}">
+                <h:commandButton value="Voltar" class="btn-danger" immediate="true" action="#{receitasBean.voltar()}"/>
+            </h:form>
+            
+        </h:panelGroup>
     </ui:define>
 
 </ui:composition>
