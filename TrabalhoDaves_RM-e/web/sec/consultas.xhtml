@@ -11,7 +11,7 @@
         <h:form id="form">
             <h:panelGroup id="lista" rendered="#{consultasBean.status == 'View'}">
                 <h:panelGroup rendered="#{loginBean.usuario.tipo == 4 or loginBean.usuario.tipo == 1}">
-                <h:commandButton value="Nova Consulta" action="#{consultasBean.novaConsulta()}" class="btn-success"/>
+                <h:commandButton value="Nova Consulta" action="#{consultasBean.novaConsulta()}" class="btn-success" style="margin-bottom: 10px;"/>
                 </h:panelGroup>
                 <h:dataTable value="#{consultasBean.consultas}" var="v"
                              border="1" style="width: 100%" class="table-bordered">   
@@ -64,14 +64,20 @@
             </h:panelGroup>
 
             <h:panelGroup id="Cadastro"  rendered="#{consultasBean.status == 'Cad'}">
-                
+                <h:messages showSummary="true"/>
                 <h:panelGrid columns="2">
  
-                    Local: <h:inputText value="#{consultasBean.consulta.local}" required="true" label="Nome" style="height: 30px; width: 219;"/>
+                    Local: <h:inputText value="#{consultasBean.consulta.local}" required="true" label="Local" style="height: 30px; width: 219;">
+                        <f:validateLength minimum="4" maximum="20"/>
+                    </h:inputText>    
+                        
+                    Data: <h:inputText value="#{consultasBean.consulta.data}" required="true" label="Data" style="height: 30px; width: 219;">
+                        <f:validateLength maximum="10" minimum="10"/>
+                    </h:inputText>
                     
-                    Data: <h:inputText value="#{consultasBean.consulta.data}" required="true" label="Login" style="height: 30px; width: 219;"/>
-                    
-                    Hora: <h:inputText value="#{consultasBean.consulta.hora}" required="true" label="Login" style="height: 30px; width: 219;"/>
+                    Hora: <h:inputText value="#{consultasBean.consulta.hora}" required="true" label="Hora" style="height: 30px; width: 219;">
+                        <f:validateLength maximum="5" minimum="5"/>
+                    </h:inputText>
                     
                     Medico: <h:selectOneListbox value="#{consultasBean.consulta.usuarioMedico.idusuario}">
                         <f:selectItems value="#{consultasBean.medicos}" var="m" itemLabel="#{m.nome}" itemValue="#{m.idusuario}" />                      

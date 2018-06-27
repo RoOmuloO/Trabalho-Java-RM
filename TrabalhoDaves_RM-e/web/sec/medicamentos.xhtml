@@ -11,7 +11,7 @@
         <h:form id="form">
             <h:panelGroup id="lista" rendered="#{medicamentosBean.status == 'View'}">
                 <h:panelGroup rendered="#{loginBean.usuario.tipo == 4 or loginBean.usuario.tipo == 1}">
-                <h:commandButton value="Novo Medicamento" action="#{medicamentosBean.novoMedicamento()}" id="novo" class="btn-success"/>
+                <h:commandButton value="Novo Medicamento" action="#{medicamentosBean.novoMedicamento()}" id="novo" class="btn-success" style="margin-bottom: 10px;"/>
                 </h:panelGroup>
                 
                 <h:dataTable value="#{medicamentosBean.medicamentos}" var="m"

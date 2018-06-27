@@ -11,7 +11,7 @@
         <h2>Usuarios</h2>
         <h:form id="form">
             <h:panelGroup id="lista" rendered="#{usuariosBean.status == 'View'}">
-                <h:commandButton value="Novo Usuario" action="#{usuariosBean.novoUsuario()}" id="novo" class="btn-success"/>
+                <h:commandButton value="Novo Usuario" action="#{usuariosBean.novoUsuario()}" id="novo" class="btn-success" style="margin-bottom: 10px;"/>
                 
                 <h:dataTable value="#{usuariosBean.usuarios}" var="v"
                              border="1" style="width: 100%" class="table-bordered">   

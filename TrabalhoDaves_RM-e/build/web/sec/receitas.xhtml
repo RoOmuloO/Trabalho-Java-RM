@@ -10,16 +10,24 @@
         <h2>Receitas</h2>
         
         
-        
-        <h:form id="form">
-            
             <h:panelGroup id="lista" rendered="#{receitasBean.status == 'View'}" >
+                
+                <h:form id="form">
+                    
+                    <p style="float: left;font-weight: bold;">Id receita:  </p>
+                    <h:inputText value="#{receitasBean.id}">
+                        <f:convertNumber pattern=""/>
+                    </h:inputText>
+                    
+                    <h:commandButton value="Pesquisar" action="#{receitasBean.pesquisar()}" class="btn-success" style="margin-top: -10px; margin-left: 10px;"/><br/><hr/>
+                
                 <h:panelGroup rendered="#{loginBean.usuario.tipo == 4 or loginBean.usuario.tipo == 1}">
                 
                 <h:outputLabel rendered="#{receitasBean.msgErro != null}" value="#{receitasBean.msgErro}" style="color: #da4f49; font-weight: bold;"/>    
                     
-                <h:commandButton value="Nova Receita" action="#{receitasBean.novaReceita()}" id="novo" class="btn-success"/>
+                <h:commandButton value="Nova Receita" action="#{receitasBean.novaReceita()}" id="novo" class="btn-success" style="margin-bottom: 10px;"/>
                 </h:panelGroup>
+                
                 
                 <h:dataTable value="#{receitasBean.receitas}" var="v"
                              border="1" style="width: 100%" class="table-bordered">   
@@ -72,12 +80,15 @@
                     </h:column>
                     
                 </h:dataTable>
+                  
+                </h:form>
+                    
             </h:panelGroup>
-
+        <h:form>
             <h:panelGroup id="Cadastro"  rendered="#{receitasBean.status == 'Cad'}">
                 
                 <h:panelGrid columns="2">
-                    
+                    <h:messages/>
                     Consulta: <h:selectOneListbox value="#{receitasBean.receita.consultaIdconsulta}">
                         <f:selectItems value="#{receitasBean.consultas}" var="m" itemLabel="#{m.usuarioPaciente.nome} - #{m.data}" itemValue="#{m.idconsulta}" />                        
                     </h:selectOneListbox>
@@ -98,7 +109,7 @@
         <h:form   rendered="#{receitasBean.status == 'Cad'}" id="formVoltar">
             <h:commandButton value="Voltar" class="btn-danger" immediate="true" action="#{receitasBean.voltar()}"/>
         </h:form>
-        
+        <h:form>
         <h:panelGroup id="lista" rendered="#{receitasBean.status == 'Visualizar'}" >
         
             <h3> Visualizando Receita </h3>
@@ -184,6 +195,7 @@
             </h:form>
             
         </h:panelGroup>
+        </h:form>
     </ui:define>
 
 </ui:composition>
