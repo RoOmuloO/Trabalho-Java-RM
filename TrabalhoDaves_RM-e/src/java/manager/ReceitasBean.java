@@ -22,6 +22,9 @@ import model.dao.ReceitaHasMedicamentoDAO;
 public class ReceitasBean {
     
     private String msgErro;
+    
+    private Integer Id;
+    private String Nome;
 
     private String status;
     private Receita receita;
@@ -47,6 +50,20 @@ public class ReceitasBean {
         receitaDao = new ReceitaDAO();
         receitas = receitaDao.findAll();
         medicamentos = new ArrayList<Medicamento>();
+        Id = 0;
+    }
+    
+    public String pesquisar(){
+        if(Id == null){
+            receitas = receitaDao.findAll();
+        }
+        else{
+            receita = receitaDao.findById(Id);
+            receitas = new ArrayList<Receita>();
+            receitas.add(receita);
+        }
+        
+        return "";
     }
     
     public String cancelar(Integer id){
@@ -219,6 +236,22 @@ public class ReceitasBean {
 
     public void setReceitaHasMedicamento(ReceitaHasMedicamento receitaHasMedicamento) {
         this.receitaHasMedicamento = receitaHasMedicamento;
+    }
+
+    public Integer getId() {
+        return Id;
+    }
+
+    public void setId(Integer Id) {
+        this.Id = Id;
+    }
+
+    public String getNome() {
+        return Nome;
+    }
+
+    public void setNome(String Nome) {
+        this.Nome = Nome;
     }
     
     
