@@ -125,7 +125,10 @@ public class ReceitasBean {
         return "";
     }
     
-    public String gravarReceita() {    
+    public String gravarReceita() {  
+       //receita.setConsultaIdconsulta(consultaDao.findById(receita.getConsultaIdconsulta().getIdconsulta()));
+       
+        
        receitaDao.salvar(receita);
        status = "Cad";
        receitas = receitaDao.findAll();

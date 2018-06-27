@@ -5,7 +5,9 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="content">
-        Seja bem vindo <h:outputLabel value="#{loginBean.usuario.nome}" />
+        <h2 style="color: #00e; font-family: sans-serif">Seja bem vindo(a)</h2> 
+        <hr/>
+        <h:outputLabel style="color: #00e; font-family: sans-serif; font-size: 30px;" value="#{loginBean.usuario.nome}" />
     </ui:define>
 
 </ui:composition>

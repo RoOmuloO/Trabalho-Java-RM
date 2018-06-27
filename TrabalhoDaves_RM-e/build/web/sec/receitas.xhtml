@@ -73,28 +73,28 @@
                     
                 </h:dataTable>
             </h:panelGroup>
-
+            
             <h:panelGroup id="Cadastro"  rendered="#{receitasBean.status == 'Cad'}">
                 
                 <h:panelGrid columns="2">
                     
-                    Consulta: <h:selectOneListbox value="#{receitasBean.receita.consultaIdconsulta}">
+                    Consulta: <h:selectOneMenu value="#{receitasBean.receita.consultaIdconsulta.idconsulta}">
                         <f:selectItems value="#{receitasBean.consultas}" var="m" itemLabel="#{m.usuarioPaciente.nome} - #{m.data}" itemValue="#{m.idconsulta}" />                        
-                    </h:selectOneListbox>
+                    </h:selectOneMenu>
                     
-                    Medicamentos: <h:selectManyListbox value="#{receitasBean.receberMedicamentos}">
+                    Medicamentos: <h:selectOneMenu value="#{receitasBean.receita.receitaHasMedicamentoList}">
                         <f:selectItems value="#{receitasBean.medicamentos}" var="m" itemLabel="#{m.nome}" itemValue="#{m.idmedicamento}"/>                        
-                    </h:selectManyListbox>
+                    </h:selectOneMenu>
                     
                     Instruções de uso: <h:inputTextarea value="#{receitasBean.receita.instrucoesUso}" required="true" label="instrucoes" />
                     
                     <h:panelGroup />
                     <h:panelGroup style="float: right;">
-                        <h:commandButton value="Gravar" action="#{receitasBean.gravarReceita()}" class="btn-success"/>
+                        <h:commandButton value="Gravar" class="btn-success" immediate="true" action="#{receitasBean.gravarReceita()}"/>
                     </h:panelGroup>   
                 </h:panelGrid>
             </h:panelGroup>
-        </h:form>
+                    </h:form>    
         <h:form   rendered="#{receitasBean.status == 'Cad'}" id="formVoltar">
             <h:commandButton value="Voltar" class="btn-danger" immediate="true" action="#{receitasBean.voltar()}"/>
         </h:form>

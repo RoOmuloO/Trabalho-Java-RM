@@ -62,10 +62,16 @@ public class Receita implements Serializable {
         this.idreceita = idreceita;
     }
 
-    public Receita(Integer idreceita, String instrucoesUso) {
+    public Receita(Integer idreceita, boolean usada, boolean cancelada, String instrucoesUso, Consulta consultaIdconsulta, List<ReceitaHasMedicamento> receitaHasMedicamentoList) {
         this.idreceita = idreceita;
+        this.usada = usada;
+        this.cancelada = cancelada;
         this.instrucoesUso = instrucoesUso;
+        this.consultaIdconsulta = consultaIdconsulta;
+        this.receitaHasMedicamentoList = receitaHasMedicamentoList;
     }
+
+    
 
     public Integer getIdreceita() {
         return idreceita;
